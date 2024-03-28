@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal BI</title>
+    <link rel="stylesheet" href="/static/portal.css">
+    <script>
+        // Função para formatar a data no campo de entrada
+        function formatarDataInput() {
+            var input = document.getElementById('filtroData');
+            var valor = input.value;
+
+            // Remover todos os caracteres não numéricos
+            valor = valor.replace(/\D/g, '');
+
+            // Adicionar o hífen no formato xx-xx-xxxx
+            if (valor.length > 2 && valor.length < 4) {
+                valor = valor.substring(0, 2) + '-' + valor.substring(2);
+            } else if (valor.length >= 4) {
+                valor = valor.substring(0, 2) + '-' + valor.substring(2, 4) + '-' + valor.substring(4, 8);
+            }
+
+            // Atualizar o valor no campo de entrada apenas visualmente
+            input.value = valor;
+        }
+
+        // Adicione esta função para carregar dados quando a página é carregada
+        window.onload = function () {
+            carregarDadosFiltrados();
+        };
+    </script>
+</head>
+
+<body>
+    <button class="tema-toggle" onclick="alternarTema()">Alternar Tema</button>
+    <header>
+        <img src="/static/Logo - Grupo Koch.png" alt="Logo da Empresa" width="250">
+        <h1>Portal BI</h1>
+        <form onsubmit="event.preventDefault(); carregarDadosFiltrados();">
+            <label for="filtroLoja">Filtrar por Loja:</label>
+            <input type="text" id="filtroLoja" name="Loja" required>
+            <label for="filtroData">Filtrar por Data:</label>
+            <input type="text" id="filtroData" name="Data" required oninput="formatarDataInput();">
+            <button type="submit">Filtrar</button>
+        </form>
+    </header>
+    <table id="dadosTable">
+        <thead>
+            <tr>
+                <th>Loja</th>
+                <th>Data</th>
+                <th>
+                    Setor
+                    <select id="filtroSetor" name="Setor">
+                        <option value="">Todos</option>
+                        {% for setor in opcoes_setor %}
+                        <option value="{{ setor }}">{{ setor }}</option>
+                        {% endfor %}
+                    </select>
+                </th>
+                <th>
+                    Categoria
+                    <select id="filtroCategoria" name="Categoria">
+                        <option value=""></option>
+                    </select>
+                </th>
+                <th>Código do Produto</th>
+                <th>
+                    Valor de Venda
+                    <div id="totalValorVenda">TOTAL: <span id="valorTotal"></span></div>
+                </th>
+                <th>
+                    Quantidade de Venda
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script src="/static/portal.js"></script>
+</body>
+
+</html>
