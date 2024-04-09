@@ -2,9 +2,9 @@ import cx_Oracle
 import pandas as pd
 
 dados_conexao = {
-    "user": "consinco",
-    "password": "K0chC0n5",
-    "dsn": "oraconsincoprd.superkoch.com.br:1521/consinco"}
+    "user": "###########Secret-value###########################",
+    "password": "###########Secret-value###########################",
+    "dsn": "###########Secret-value###########################"}
 
 caminho_arquivo_csv = "C:/Users/gabriel.borato/Documents/Dev/Portal BI/dados_exportados.csv"
 
